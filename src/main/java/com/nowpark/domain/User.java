@@ -27,7 +27,7 @@ import lombok.ToString;
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Entity(name = "User")
-public class User {
+public class User extends Jsonizer {
 
 	@Transient
 	private static SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
