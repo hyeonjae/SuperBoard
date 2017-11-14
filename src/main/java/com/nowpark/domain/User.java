@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-@Entity
+@Entity(name = "User")
 public class User {
 
 	@Transient
@@ -34,7 +35,11 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	private String name;
+
 	private String email;
+
+	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date registeredAt;
 }

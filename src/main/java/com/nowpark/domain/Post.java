@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
@@ -26,7 +27,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-@Entity
+@Entity(name = "Post")
 public class Post {
 
 	@Transient
@@ -46,8 +47,16 @@ public class Post {
 	@JsonFormat(pattern = "MM/dd/yyyy")
 	private Date updatedAt;
 
-	private Boolean deletedYn;
+//	@JsonFormat(pattern = "MM/dd/yyyy")
+//	private Date deletedAt;
+//
+//	private Boolean deletedYn;
 
-	@OneToOne
+//	private Long boardId;
+
+	@ManyToOne
+	private Board board;
+
+	@OneToOne(optional = false)
 	private User author;
 }

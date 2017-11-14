@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,39 +20,36 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/boards")
-public class BoardController {
-
-	private final BoardService boardService;
+@RequestMapping(value = "/api/v1/users")
+public class UserController {
 
 	private final UserService userService;
 
 	@Autowired
-	public BoardController(BoardService boardService, UserService userService) {
-		this.boardService = boardService;
+	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 
 	@PostMapping(value = "")
-	public Board create(@RequestBody Board board, @RequestHeader("userId") Long userId) {
-		User user = userService.select(userId);
-		board.setOwner(user);
-		Long id = boardService.insert(board);
-		return Board.builder().id(id).build();
+	public User create(@RequestBody User user) {
+		Long id = userService.insert(user);
+		return User.builder()
+				.id(id)
+				.build();
 	}
 
 	@GetMapping(value = "")
-	public List<Board> showAll() {
-		return boardService.selectAll();
+	public List<User> showAll() {
+		return userService.selectAll();
 	}
 
 	@GetMapping(value = "/{id}")
-	public Board show(@PathVariable Long id) {
-		return boardService.select(id);
+	public User show(@PathVariable Long id) {
+		return userService.select(id);
 	}
 
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable Long id) {
-		boardService.delete(id);
+		userService.delete(id);
 	}
 }

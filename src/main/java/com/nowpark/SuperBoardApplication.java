@@ -26,7 +26,7 @@ public class SuperBoardApplication {
 			log.info("Create Data...");
 //			userService.insertData();
 			log.info("findAll()...");
-			userService.findAll().forEach(entry -> log.info(entry.toString()));
+			userService.selectAll().forEach(entry -> log.info(entry.toString()));
 		};
 	}
 
